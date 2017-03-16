@@ -13,7 +13,7 @@ Vue.use(VueRouter)
 Vue.prototype.$http = axios
 //定义组件
 import first from './components/first.vue'
-import movie from './component/movie.vue'
+import movie from './components/movie.vue'
 
 
 const router = new VueRouter({

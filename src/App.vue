@@ -12,7 +12,7 @@
 <script>
 import first from './components/first.vue'
 import bottomNav from './components/bottomNav.vue'
-
+import movie from './components/movie.vue'
 export default {
   data () {
     return {
@@ -21,7 +21,8 @@ export default {
   },
   components : {
     first,
-    bottomNav
+    bottomNav,
+    movie
   }
 }
 </script>

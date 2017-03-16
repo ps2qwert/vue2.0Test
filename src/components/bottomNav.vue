@@ -13,12 +13,12 @@
 		  </el-col>
 		  <el-col :span="6">
 		  	<div class="grid-content">
-		  		<router-link to="/two">跳转第二页</router-link>
+		  		<router-link to="/movie">跳转第二页</router-link>
 		  	</div>
 		  </el-col>
 		  <el-col :span="6">
 		  	<div class="grid-content">
-		  		<router-link to="/two">跳转第二页</router-link>
+		  		<router-link to="/movie">跳转第二页</router-link>
 		  	</div>
 		  </el-col>
 	</el-row>

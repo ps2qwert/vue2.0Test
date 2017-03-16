@@ -1,4 +1,5 @@
 var http = require('http');
+var https = require("https")
 var querystring = require('querystring');
 
 
@@ -40,25 +41,37 @@ var server = http.createServer(function (req, res) {
                 count : "10"
         });
         var options = {
-            host: 'https://api.douban.com',
-            path:'/v2/movie/top250?' + data,
+            host: 'api.douban.com/v2/movie/top250',
+            path:'?' + data,
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json;charset=UTF-8'
             }
         };
-        var req = http.request(options, function(resource) {
-            resource.setEncoding('utf8');
-            var body = ''
-            resource.on('data', function (chunk) {
-                console.log("2")
-                body += chunk
-            });
-            resource.on('end',function (chunk){
-                 res.end(body);
-            })
+        https.get('https://api.douban.com/v2/movie/top250?count=10', (resource) => {
+          var body=''
+          resource.on('data', (d) => {
+            process.stdout.write(d);
+            body += d
+          });
+          resource.on('end',function(d){
+            res.end(body)
+          })
+        }).on('error', (e) => {
+          console.error(e);
         });
-        req.end();        
+        // var req = https.request(options, function(resource) {
+        //     resource.setEncoding('utf8');
+        //     var body = ''
+        //     resource.on('data', function (chunk) {
+        //         console.log("2")
+        //         body += chunk
+        //     });
+        //     resource.on('end',function (chunk){
+        //          res.end(body);
+        //     })
+        // });
+        // req.end();        
     }else{
 
     }
