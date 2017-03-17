@@ -14,7 +14,6 @@
 		  		<h3>{{article.title}}</h3>
 		  		<p>公众号：{{article.source}}</p>
 		  	</div>
-
 		  </el-col>
 		</el-row>
     	</li>
@@ -32,13 +31,11 @@ export default {
   },
   methods : {
   	goDetail(obj){
-  		debugger;
   		window.location.href = obj
   	}
   },
   created (){
   	var self = this
-  	debugger;
 	this.$http.get('http://127.0.0.1:9000/test', {
 		params: {
 		  key: '45c5a8c1087989149f8fd3704cb522bf',
@@ -46,7 +43,6 @@ export default {
 		  pno : 1
 		},
 	}).then(function (response) {
-		console.log(response.data)
 		self.articles = response.data.result.list
 	}).catch(function (error) {
 		console.log(error);

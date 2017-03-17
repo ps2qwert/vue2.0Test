@@ -1,24 +1,19 @@
 var http = require('http');
 var https = require("https")
 var querystring = require('querystring');
+var url = require('url');
 
 
 
-var server = http.createServer(function (req, res) {
-    var url_info = require('url').parse(req.url, true);
-    var info = ''
-    if(url_info.pathname === '/test'){
+
+function httpReq(req,res,obj){
         res.writeHead(200, {'Content-Type': 'application/json',"Access-Control-Allow-Origin":"*"});
-        var data = querystring.stringify({
-                key : "45c5a8c1087989149f8fd3704cb522bf"
-        });
+        var data = querystring.stringify(obj.data);
         var options = {
-            host: 'v.juhe.cn',
-            path:'/weixin/query?' + data,
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            }
+            host: obj.url,
+            path: obj.path + data,
+            method: obj.method,
+            headers: obj.headers
         };
         var req = http.request(options, function(resource) {
             // console.log(resource)
@@ -32,80 +27,101 @@ var server = http.createServer(function (req, res) {
                  res.end(body);
             })
         });
-        console.log("1")
-        console.log("3")
-        req.end();
-    }else if(url_info.pathname === '/movie'){
-        res.writeHead(200, {'Content-Type': 'application/json',"Access-Control-Allow-Origin":"*"});
-        var data = querystring.stringify({
-                count : "10"
-        });
-        var options = {
-            host: 'api.douban.com/v2/movie/top250',
-            path:'?' + data,
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json;charset=UTF-8'
-            }
-        };
-        https.get('https://api.douban.com/v2/movie/top250?count=10', (resource) => {
-          var body=''
-          resource.on('data', (d) => {
-            process.stdout.write(d);
-            body += d
-          });
-          resource.on('end',function(d){
-            res.end(body)
-          })
-        }).on('error', (e) => {
-          console.error(e);
-        });
-        // var req = https.request(options, function(resource) {
-        //     resource.setEncoding('utf8');
-        //     var body = ''
-        //     resource.on('data', function (chunk) {
-        //         console.log("2")
-        //         body += chunk
-        //     });
-        //     resource.on('end',function (chunk){
-        //          res.end(body);
-        //     })
-        // });
-        // req.end();        
-    }else{
+        req.end();    
+}
 
+function httpGet(req,res,obj){
+    res.writeHead(200, {'Content-Type': 'application/json',"Access-Control-Allow-Origin":"*"});
+    var reqData = url.parse(req.url).query
+    https.get('https://api.douban.com/v2/movie/top250?count='+reqData.count, (resource) => {
+      var body=''
+      resource.on('data', (d) => {
+        process.stdout.write(d);
+        body += d
+      });
+      resource.on('end',function(d){
+        res.end(body)
+      })
+    }).on('error', (e) => {
+      console.error(e);
+    });    
+}
+
+
+var server = http.createServer(function (req, res) {
+    var url_info = url.parse(req.url, true);
+    var info = ''
+    // if(url_info.pathname === '/test'){
+    //     httpReq(req,res,{
+    //         url : 'v.juhe.cn',
+    //         path : '/weixin/query?',
+    //         method : 'GET',
+    //         headers:{
+    //             'Content-Type': 'application/json;charset=UTF-8'
+    //         },
+    //         data : {
+    //             key : "45c5a8c1087989149f8fd3704cb522bf"
+    //         }
+    //     })
+    // }else if(url_info.pathname === '/movie'){
+    //     res.writeHead(200, {'Content-Type': 'application/json',"Access-Control-Allow-Origin":"*"});
+    //     var reqData = url.parse(req.url).query
+    //     https.get('https://api.douban.com/v2/movie/top250?count='+reqData.count, (resource) => {
+    //       var body=''
+    //       resource.on('data', (d) => {
+    //         process.stdout.write(d);
+    //         body += d
+    //       });
+    //       resource.on('end',function(d){
+    //         res.end(body)
+    //       })
+    //     }).on('error', (e) => {
+    //       console.error(e);
+    //     });    
+    // }else if(url_info.pathname === ''){
+
+    // }
+    switch (url_info.pathname){
+        case '/test':
+            httpReq(req,res,{
+                url : 'v.juhe.cn',
+                path : '/weixin/query?',
+                method : 'GET',
+                headers:{
+                    'Content-Type': 'application/json;charset=UTF-8'
+                },
+                data : {
+                    key : "45c5a8c1087989149f8fd3704cb522bf"
+                }
+            })            
+            break;
+        case '/movie':
+            res.writeHead(200, {'Content-Type': 'application/json',"Access-Control-Allow-Origin":"*"});
+            var reqData = url.parse(req.url).query
+            https.get('https://api.douban.com/v2/movie/top250?count='+reqData.count, (resource) => {
+              var body=''
+              resource.on('data', (d) => {
+                process.stdout.write(d);
+                body += d
+              });
+              resource.on('end',function(d){
+                res.end(body)
+              })
+            }).on('error', (e) => {
+              console.error(e);
+            });    
+            break;
+        case '/movieDetails':
+
+            break;
+        default :
+            console.log("请求错误")
     }
+
 });
 
 
-//json转换为字符串
-// var data = querystring.stringify({
-//         key : "45c5a8c1087989149f8fd3704cb522bf"
-// });
 
-
-
-// var options = {
-//     host: 'v.juhe.cn',
-//     path:'/weixin/query?' + data,
-//     method: 'GET',
-//     headers: {
-//         'Content-Type': 'application/json;charset=UTF-8'
-//     }
-// };
-
-// var req = http.request(options, function(res) {
-//     res.setEncoding('utf8');
-//     res.on('data', function (chunk) {
-//         console.log("body: " + chunk);
-//     });
-//     res.on('end',function (chunk){
-//         console.log("body: " + chunk);
-//     })
-// });
-
-
-// req.end();
 
 
 

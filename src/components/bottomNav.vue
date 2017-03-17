@@ -1,6 +1,6 @@
 <template>
   <div id="bottomNav">
-	  <el-row :gutter="20">
+	  <el-row style="margin-bottom:10px">
 		  <el-col :span="6">
 		  	<div class="grid-content">
 		  		<router-link to="/">微信精选</router-link>
@@ -13,12 +13,12 @@
 		  </el-col>
 		  <el-col :span="6">
 		  	<div class="grid-content">
-		  		<router-link to="/movie">跳转第二页</router-link>
+		  		<router-link to="/movie">头条</router-link>
 		  	</div>
 		  </el-col>
 		  <el-col :span="6">
 		  	<div class="grid-content">
-		  		<router-link to="/movie">跳转第二页</router-link>
+		  		<router-link to="/movie">信息</router-link>
 		  	</div>
 		  </el-col>
 	</el-row>
@@ -42,11 +42,17 @@ export default {
 </script>
 
 <style>
+  #bottomNav{
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    left: 0;
+    background: #fff;
+    padding-top: 10px;
+  }
+  #bottomNav a{text-align: center; display: block; text-decoration: none;}
   .el-row {
-    margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
   .el-col {
     border-radius: 4px;

@@ -14,7 +14,7 @@ Vue.prototype.$http = axios
 //定义组件
 import first from './components/first.vue'
 import movie from './components/movie.vue'
-
+import movieDetails from './components/movieDetails.vue'
 
 const router = new VueRouter({
 	mode : 'hash',
@@ -27,6 +27,10 @@ const router = new VueRouter({
 		{
 			path : '/movie',
 			component : movie
+		},
+		{
+			path : '/movie/:movieId',
+			component : movieDetails
 		}
 	]
 })

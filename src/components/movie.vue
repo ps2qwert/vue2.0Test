@@ -12,7 +12,18 @@
 		  <el-col :span="18">
 		  	<div class="grid-content">
 		  		<h3>{{article.title}}</h3>
-		  		<p>类型：{{article.genres[0]}}</p>
+		  		<p>
+		  			主演：
+		  			<span v-for = "(value,key) in article.casts">
+		  				{{value.name}}
+		  			</span>
+		  		</p>
+		  		<p>
+		  			类型：
+		  			<span v-for = "(value,key) in article.genres">
+		  				{{value}}
+		  			</span>
+		  		</p>
 		  	</div>
 		  </el-col>
 		</el-row>
@@ -38,9 +49,7 @@ export default {
   	var self = this
 	this.$http.get('http://127.0.0.1:9000/movie', {
 		params: {
-		  key: '45c5a8c1087989149f8fd3704cb522bf',
-		  ps : 20,
-		  pno : 1
+		  count : 20
 		},
 	}).then(function (response) {
 		self.articles = response.data.subjects
