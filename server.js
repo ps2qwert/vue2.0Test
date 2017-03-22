@@ -32,11 +32,17 @@ function httpReq(req,res,obj){
 
 function httpGet(req,res,obj){
     res.writeHead(200, {'Content-Type': 'application/json',"Access-Control-Allow-Origin":"*"});
-    var reqData = url.parse(req.url).query
-    https.get('https://api.douban.com/v2/movie/top250?count='+reqData.count, (resource) => {
+    console.log(obj.data)
+    var data = querystring.stringify(obj.data)
+    console.log(data)
+    var options = {
+        hostname : obj.url,
+        path : obj.path + data,
+        method : obj.method
+    }
+    https.get(options, (resource) => {
       var body=''
       resource.on('data', (d) => {
-        process.stdout.write(d);
         body += d
       });
       resource.on('end',function(d){
@@ -50,6 +56,7 @@ function httpGet(req,res,obj){
 
 var server = http.createServer(function (req, res) {
     var url_info = url.parse(req.url, true);
+    console.log(url_info)
     var info = ''
     // if(url_info.pathname === '/test'){
     //     httpReq(req,res,{
@@ -96,23 +103,26 @@ var server = http.createServer(function (req, res) {
             })            
             break;
         case '/movie':
-            res.writeHead(200, {'Content-Type': 'application/json',"Access-Control-Allow-Origin":"*"});
-            var reqData = url.parse(req.url).query
-            https.get('https://api.douban.com/v2/movie/top250?count='+reqData.count, (resource) => {
-              var body=''
-              resource.on('data', (d) => {
-                process.stdout.write(d);
-                body += d
-              });
-              resource.on('end',function(d){
-                res.end(body)
-              })
-            }).on('error', (e) => {
-              console.error(e);
-            });    
+            var reqData = url.parse(req.url,true).query
+            console.log(reqData.count)
+            httpGet(req,res,{
+                url : 'api.douban.com',
+                path : '/v2/movie/top250?',
+                method: 'GET',
+                data : {
+                    count : reqData.count
+                }
+            })
             break;
         case '/movieDetails':
-
+            var reqData = url.parse(req.url,true).query
+            console.log(reqData.id)
+            httpGet(req,res,{
+                url : 'api.douban.com',
+                path : '/v2/movie/subject/'+reqData.id,
+                method: 'GET',
+                data : {}
+            })
             break;
         default :
             console.log("请求错误")

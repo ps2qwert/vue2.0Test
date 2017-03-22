@@ -18,35 +18,55 @@
 		</el-row>
     	</li>
     </ul>
+    <pulse-loader :loading = "loading" v-if = 'loading'></pulse-loader>
   </div>
+
 </template>
 
 <script>
+import pulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
   data () {
     return {
       author: '微信精选',
-      articles : []
+      articles : [],
+      loading : true
     }
+  },
+  watch : {
+  	'$route' : function(){
+  		var self = this;
+  		self.loading = true;
+  		self.getData().then(function(){
+  			self.loading = false
+  		})
+  	}
   },
   methods : {
   	goDetail(obj){
   		window.location.href = obj
+  	},
+  	getData(){
+	  	var self = this
+		this.$http.get('http://127.0.0.1:9000/test', {
+			params: {
+			  key: '45c5a8c1087989149f8fd3704cb522bf',
+			  ps : 20,
+			  pno : 1
+			},
+		}).then(function (response) {
+			self.articles = response.data.result.list
+		}).catch(function (error) {
+			console.log(error);
+		});  		
   	}
   },
   created (){
-  	var self = this
-	this.$http.get('http://127.0.0.1:9000/test', {
-		params: {
-		  key: '45c5a8c1087989149f8fd3704cb522bf',
-		  ps : 20,
-		  pno : 1
-		},
-	}).then(function (response) {
-		self.articles = response.data.result.list
-	}).catch(function (error) {
-		console.log(error);
-	});
+  	var self = this;
+  	self.getData();
+  },
+  components : {
+    	pulseLoader 
   }
 }
 </script>
@@ -54,14 +74,7 @@ export default {
 <style>
 /*@import "element-ui/lib/theme-default/index.css";*/
 
-
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+#first h1{text-align: center;}
 
 h1, h2{
   font-weight: normal;

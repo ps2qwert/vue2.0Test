@@ -30,6 +30,7 @@ const router = new VueRouter({
 		},
 		{
 			path : '/movie/:movieId',
+			name: 'movieDetail',
 			component : movieDetails
 		}
 	]

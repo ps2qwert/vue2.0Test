@@ -2,7 +2,7 @@
   <div id="movie">
     <h1>{{author}}</h1>
     <ul>
-    	<li v-for = "article in articles" @click = 'goDetail(article.alt)'>
+    	<li v-for = "article in articles" @click = 'goDetail(article.id)'>
 		<el-row :gutter="20" >
 		  <el-col :span="6">
 		  	<div class="grid-content ">
@@ -29,33 +29,56 @@
 		</el-row>
     	</li>
     </ul>
+
+ 	<pulse-loader :loading = "loading" v-if = 'loading'></pulse-loader>
   </div>
+
+
+
 </template>
 
 <script>
+import pulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
   data () {
     return {
       author: '电影top10',
-      articles : []
+      articles : [],
+      loading : true,
     }
   },
+  watch : {
+  	'$route' : function(){
+  		var self = this;
+  		self.loading = true;
+  		self.getData().then(function(){
+  			self.loading = false
+  		})
+  	}
+  },
   methods : {
-  	goDetail(obj){
-  		window.location.href = obj
+  	getData : function(){
+  		var self = this
+		this.$http.get('http://127.0.0.1:9000/movie', {
+			params: {
+			  count : 20
+			},
+		}).then(function (response) {
+			self.articles = response.data.subjects
+		}).catch(function (error) {
+			console.log(error);
+		});
+  	},
+  	goDetail(id){
+  		this.$router.push({name : 'movieDetail',params : {movieId : id}})
   	}
   },
   created (){
   	var self = this
-	this.$http.get('http://127.0.0.1:9000/movie', {
-		params: {
-		  count : 20
-		},
-	}).then(function (response) {
-		self.articles = response.data.subjects
-	}).catch(function (error) {
-		console.log(error);
-	});
+	self.getData()
+  },
+  components : {
+    	pulseLoader 
   }
 }
 </script>
@@ -63,13 +86,11 @@ export default {
 <style>
 /*@import "element-ui/lib/theme-default/index.css";*/
 
-
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+.v-spinner{
+	text-align: center;
+}
+#movie h1{
+	text-align: center;
 }
 
 h1, h2{

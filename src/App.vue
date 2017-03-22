@@ -4,7 +4,6 @@
       <router-view class="view"></router-view>
     </transition>
     
-    
     <bottomNav></bottomNav>
   </div>
 </template>
