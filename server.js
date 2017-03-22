@@ -56,8 +56,8 @@ function httpGet(req,res,obj){
 
 var server = http.createServer(function (req, res) {
     var url_info = url.parse(req.url, true);
+    var reqData = url.parse(req.url,true).query
     console.log(url_info)
-    var info = ''
     // if(url_info.pathname === '/test'){
     //     httpReq(req,res,{
     //         url : 'v.juhe.cn',
@@ -103,8 +103,6 @@ var server = http.createServer(function (req, res) {
             })            
             break;
         case '/movie':
-            var reqData = url.parse(req.url,true).query
-            console.log(reqData.count)
             httpGet(req,res,{
                 url : 'api.douban.com',
                 path : '/v2/movie/top250?',
@@ -115,8 +113,6 @@ var server = http.createServer(function (req, res) {
             })
             break;
         case '/movieDetails':
-            var reqData = url.parse(req.url,true).query
-            console.log(reqData.id)
             httpGet(req,res,{
                 url : 'api.douban.com',
                 path : '/v2/movie/subject/'+reqData.id,
@@ -124,6 +120,16 @@ var server = http.createServer(function (req, res) {
                 data : {}
             })
             break;
+        case '/movieComment':
+            httpGet(req,res,{
+                url : 'api.douban.com',
+                path : '/v2/movie/subject/'+reqData.id+'/comments?',
+                method : "GET",
+                data : {
+                    start : 0,
+                    count : 10
+                }
+            })
         default :
             console.log("请求错误")
     }
