@@ -13,7 +13,7 @@
 		  </el-col>
 		  <el-col :span="6">
 		  	<div class="grid-content">
-		  		<router-link to="/movie">头条</router-link>
+		  		<router-link to="/search">搜索</router-link>
 		  	</div>
 		  </el-col>
 		  <el-col :span="6">

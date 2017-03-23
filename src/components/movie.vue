@@ -1,7 +1,7 @@
 <template>
-  <div id="movie">
-    <h1>{{author}}</h1>
-    <ul>
+  <div id="movie"   >
+    <head-nav :title = 'author'></head-nav>
+    <ul  v-loading="loading">
     	<li v-for = "article in articles" @click = 'goDetail(article.id)'>
 		<el-row :gutter="20" >
 		  <el-col :span="6">
@@ -30,14 +30,16 @@
     	</li>
     </ul>
 
- 	<pulse-loader :loading = "loading" v-if = 'loading'></pulse-loader>
-  </div>
+<!--  	<pulse-loader :loading = "loading" v-if = 'loading'></pulse-loader>
+ -->  
+ </div>
 
 
 
 </template>
 
 <script>
+import headNav from '../components/headNav.vue'
 import pulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
   data () {
@@ -49,6 +51,7 @@ export default {
   },
   watch : {
   	'$route' : function(){
+  		debugger;
   		var self = this;
   		self.loading = true;
   		self.getData().then(function(){
@@ -65,6 +68,7 @@ export default {
 			},
 		}).then(function (response) {
 			self.articles = response.data.subjects
+			self.loading = false
 		}).catch(function (error) {
 			console.log(error);
 		});
@@ -78,7 +82,8 @@ export default {
 	self.getData()
   },
   components : {
-    	pulseLoader 
+    	pulseLoader,
+    	headNav 
   }
 }
 </script>
@@ -92,7 +97,9 @@ export default {
 #movie h1{
 	text-align: center;
 }
-
+#movie>ul{
+	margin: 0 8px;
+}
 h1, h2{
   font-weight: normal;
 }
@@ -113,6 +120,7 @@ a {
 
 .el-row {
   margin-bottom: 20px;
+  width: 100%;
   &:last-child {
     margin-bottom: 0;
   }

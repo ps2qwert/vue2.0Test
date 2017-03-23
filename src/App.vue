@@ -12,22 +12,26 @@
 import first from './components/first.vue'
 import bottomNav from './components/bottomNav.vue'
 import movie from './components/movie.vue'
+import headNav from './components/headNav.vue'
 export default {
   data () {
     return {
-      msg: 'hello app'
+      msg: 'hello app',
+      title : "标题"
     }
   },
   components : {
     first,
     bottomNav,
-    movie
+    movie,
+    headNav
   }
 }
 </script>
 
 <style>
 
+body,nav,dl,dt,dd,p,h1,h2,h3,h4,ul,ol,li,input,button,textarea,footer{margin:0;padding:0}
 
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s ease;

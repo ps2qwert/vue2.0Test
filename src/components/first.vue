@@ -1,7 +1,7 @@
 <template>
   <div id="first">
-    <h1>{{author}}</h1>
-    <ul>
+    <head-nav :title = 'author'></head-nav>
+    <ul v-loading="loading">
     	<li v-for = "article in articles" @click = 'goDetail(article.url)'>
 		<el-row :gutter="20" >
 		  <el-col :span="6">
@@ -18,12 +18,13 @@
 		</el-row>
     	</li>
     </ul>
-    <pulse-loader :loading = "loading" v-if = 'loading'></pulse-loader>
-  </div>
+<!--     <pulse-loader :loading = "loading" v-if = 'loading'></pulse-loader>
+ -->  </div>
 
 </template>
 
 <script>
+import headNav from '../components/headNav.vue'
 import pulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
   data () {
@@ -56,6 +57,7 @@ export default {
 			},
 		}).then(function (response) {
 			self.articles = response.data.result.list
+			self.loading = false
 		}).catch(function (error) {
 			console.log(error);
 		});  		
@@ -66,7 +68,8 @@ export default {
   	self.getData();
   },
   components : {
-    	pulseLoader 
+    	pulseLoader,
+    	headNav 
   }
 }
 </script>
@@ -75,7 +78,9 @@ export default {
 /*@import "element-ui/lib/theme-default/index.css";*/
 
 #first h1{text-align: center;}
-
+#first ul{
+	margin: 8px 8px
+}
 h1, h2{
   font-weight: normal;
 }

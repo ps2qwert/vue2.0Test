@@ -15,6 +15,7 @@ Vue.prototype.$http = axios
 import first from './components/first.vue'
 import movie from './components/movie.vue'
 import movieDetails from './components/movieDetails.vue'
+import search from "./components/search.vue"
 
 const router = new VueRouter({
 	mode : 'hash',
@@ -32,6 +33,10 @@ const router = new VueRouter({
 			path : '/movie/:movieId',
 			name: 'movieDetail',
 			component : movieDetails
+		},
+		{
+			path : '/search',
+			component : search
 		}
 	]
 })

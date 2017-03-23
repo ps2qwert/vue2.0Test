@@ -120,16 +120,16 @@ var server = http.createServer(function (req, res) {
                 data : {}
             })
             break;
-        case '/movieComment':
+        case '/movieSearch':
             httpGet(req,res,{
                 url : 'api.douban.com',
-                path : '/v2/movie/subject/'+reqData.id+'/comments?',
+                path : '/v2/movie/search?',
                 method : "GET",
                 data : {
-                    start : 0,
-                    count : 10
+                    q : reqData.q
                 }
             })
+            break;
         default :
             console.log("请求错误")
     }
