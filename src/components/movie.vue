@@ -114,9 +114,7 @@ li {
   width: 100%
 }
 
-a {
-  color: #42b983;
-}
+
 
 .el-row {
   margin-bottom: 20px;
@@ -154,7 +152,7 @@ a {
 }
 .grid-content img{
 	width: 100%;
-  max-height: 76px
+  max-height: 108px
 }
 .row-bg {
   padding: 10px 0;

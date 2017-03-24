@@ -1,24 +1,9 @@
 <template>
   <div id="bottomNav">
 	  <el-row style="margin-bottom:10px">
-		  <el-col :span="6">
+		  <el-col :span="6" v-for = "list in lists">
 		  	<div class="grid-content">
-		  		<router-link to="/">微信精选</router-link>
-		  	</div>
-		  </el-col>
-		  <el-col :span="6">
-		  	<div class="grid-content">
-				<router-link to="/movie">电影</router-link> 		
-		  	</div>
-		  </el-col>
-		  <el-col :span="6">
-		  	<div class="grid-content">
-		  		<router-link to="/search">搜索</router-link>
-		  	</div>
-		  </el-col>
-		  <el-col :span="6">
-		  	<div class="grid-content">
-		  		<router-link to="/movie">信息</router-link>
+		  		<router-link :to="list.path" :class="{ active : activeName == list.name}">{{list.name}}</router-link>
 		  	</div>
 		  </el-col>
 	</el-row>
@@ -27,9 +12,31 @@
 
 <script>
 export default {
+  props: {
+    activeName: {
+      type: String
+    }
+  },
   data () {
     return {
-
+    	lists : [
+    		{
+    			path : '/',
+    			name : '票房榜'
+    		},
+    		{
+    			path : '/movie',
+    			name : '电影top'
+    		},
+    		{
+    			path : '/search',
+    			name : '搜索'
+    		},
+    		{
+    			path : '/reveal',
+    			name : '热映'
+    		}
+    	]
     }
   },
   methods : {

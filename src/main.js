@@ -13,9 +13,11 @@ Vue.use(VueRouter)
 Vue.prototype.$http = axios
 //定义组件
 import first from './components/first.vue'
+import us from './components/us.vue'
 import movie from './components/movie.vue'
 import movieDetails from './components/movieDetails.vue'
 import search from "./components/search.vue"
+import reveal from "./components/reveal.vue"
 
 const router = new VueRouter({
 	mode : 'hash',
@@ -23,7 +25,7 @@ const router = new VueRouter({
 	routes : [
 		{
 			path : '/',
-			component : first
+			component : us
 		},
 		{
 			path : '/movie',
@@ -37,6 +39,10 @@ const router = new VueRouter({
 		{
 			path : '/search',
 			component : search
+		},
+		{
+			path : "/reveal",
+			component : reveal 
 		}
 	]
 })

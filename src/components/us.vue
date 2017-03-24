@@ -1,27 +1,46 @@
-<!-- 微信精选 -->
-
 <template>
-  <div id="first">
+  <div id="movie"   >
     <head-nav :title = 'author'></head-nav>
-    <ul v-loading="loading">
-    	<li v-for = "article in articles" @click = 'goDetail(article.url)'>
+    <ul  v-loading="loading">
+    	<li v-for = "article in articles" @click = 'goDetail(article.id)'>
 		<el-row :gutter="20" >
 		  <el-col :span="6">
 		  	<div class="grid-content ">
-		  		<img :src = "article.firstImg">
+		  		<img :src = "article.subject.images.small">
 		  	</div>
 		  </el-col>
 		  <el-col :span="18">
 		  	<div class="grid-content">
-		  		<h3>{{article.title}}</h3>
-		  		<p>公众号：{{article.source}}</p>
+		  		<h3>{{article.subject.title}}</h3>
+<!-- 		  		<p>
+		  			主演：
+		  			<span v-for = "(value,key) in article.subject.casts">
+		  				{{value.name}}
+		  			</span>
+		  		</p> -->
+		  		<p>
+		  			类型：
+		  			<span v-for = "(value,key) in article.subject.genres">
+		  				{{value}}
+		  			</span>
+		  		</p>
+		  		<p>
+		  			票房：{{article.box}}
+		  		</p>
+		  		<p>
+		  			豆瓣评分：<span style="color: #fea54c; font-size:20px">{{article.subject.rating.average}}</span>
+		  		</p>
 		  	</div>
 		  </el-col>
 		</el-row>
     	</li>
     </ul>
-<!--     <pulse-loader :loading = "loading" v-if = 'loading'></pulse-loader>
- -->  </div>
+
+<!--  	<pulse-loader :loading = "loading" v-if = 'loading'></pulse-loader>
+ -->  
+ </div>
+
+
 
 </template>
 
@@ -31,13 +50,14 @@ import pulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
   data () {
     return {
-      author: '微信精选',
+      author: '北美票房榜',
       articles : [],
-      loading : true
+      loading : true,
     }
   },
   watch : {
   	'$route' : function(){
+  		debugger;
   		var self = this;
   		self.loading = true;
   		self.getData().then(function(){
@@ -46,28 +66,26 @@ export default {
   	}
   },
   methods : {
-  	goDetail(obj){
-  		window.location.href = obj
-  	},
-  	getData(){
-	  	var self = this
-		this.$http.get('http://127.0.0.1:9000/test', {
+  	getData : function(){
+  		var self = this
+		this.$http.get('http://127.0.0.1:9000/us_box', {
 			params: {
-			  key: '45c5a8c1087989149f8fd3704cb522bf',
-			  ps : 20,
-			  pno : 1
+			  count : 20
 			},
 		}).then(function (response) {
-			self.articles = response.data.result.list
+			self.articles = response.data.subjects
 			self.loading = false
 		}).catch(function (error) {
 			console.log(error);
-		});  		
+		});
+  	},
+  	goDetail(id){
+  		this.$router.push({name : 'movieDetail',params : {movieId : id}})
   	}
   },
   created (){
-  	var self = this;
-  	self.getData();
+  	var self = this
+	self.getData()
   },
   components : {
     	pulseLoader,
@@ -79,9 +97,14 @@ export default {
 <style>
 /*@import "element-ui/lib/theme-default/index.css";*/
 
-#first h1{text-align: center;}
-#first ul{
-	margin: 8px 8px
+.v-spinner{
+	text-align: center;
+}
+#movie h1{
+	text-align: center;
+}
+#movie>ul{
+	margin: 0 8px;
 }
 h1, h2{
   font-weight: normal;
@@ -101,6 +124,7 @@ li {
 
 .el-row {
   margin-bottom: 20px;
+  width: 100%;
   &:last-child {
     margin-bottom: 0;
   }
@@ -134,7 +158,7 @@ li {
 }
 .grid-content img{
 	width: 100%;
-  max-height: 76px
+  max-height: 108px
 }
 .row-bg {
   padding: 10px 0;

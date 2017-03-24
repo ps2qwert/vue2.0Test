@@ -89,6 +89,14 @@ var server = http.createServer(function (req, res) {
 
     // }
     switch (url_info.pathname){
+        case '/us_box':
+            httpGet(req,res,{
+                url : 'api.douban.com',
+                path : '/v2/movie/us_box',
+                method: 'GET',
+                data : {}
+            })            
+            break;
         case '/test':
             httpReq(req,res,{
                 url : 'v.juhe.cn',

@@ -4,7 +4,7 @@
       <router-view class="view"></router-view>
     </transition>
     
-    <bottomNav></bottomNav>
+    <bottomNav :activeName = 'bottomNav'></bottomNav>
   </div>
 </template>
 
@@ -17,7 +17,27 @@ export default {
   data () {
     return {
       msg: 'hello app',
-      title : "标题"
+      title : "标题",
+      bottomNav : '票房榜'
+    }
+  },
+  watch : {
+    '$route' : function(){
+      var rname = this.$route.path;
+      switch(rname) {
+        case '/movie':
+            this.bottomNav = '电影top'
+            break
+        case '/search':
+            this.bottomNav = '搜索'
+            break
+        case '/reveal':
+            this.bottomNav = '热映'
+            break
+        case '/':
+            this.bottomNav = '票房榜'
+            break
+      }
     }
   },
   components : {
@@ -25,6 +45,23 @@ export default {
     bottomNav,
     movie,
     headNav
+  },
+  created () {
+      var rname = this.$route.path;
+      switch(rname) {
+        case '/movie':
+            this.bottomNav = '电影top'
+            break
+        case '/search':
+            this.bottomNav = '搜索'
+            break
+        case '/reveal':
+            this.bottomNav = '热映'
+            break
+        case '/':
+            this.bottomNav = '票房榜'
+            break
+      }
   }
 }
 </script>
@@ -38,6 +75,13 @@ body,nav,dl,dt,dd,p,h1,h2,h3,h4,ul,ol,li,input,button,textarea,footer{margin:0;p
 }
 .fade-enter, .fade-leave-active {
   opacity: 0
+}
+
+.grid-content .active{
+  color: #03a9f4
+}
+.grid-content a{
+  color : #979595;
 }
 /*.child-view {
   position: absolute;
