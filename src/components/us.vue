@@ -2,7 +2,7 @@
   <div id="movie"   >
     <head-nav :title = 'author'></head-nav>
     <ul  v-loading="loading">
-    	<li v-for = "article in articles" @click = 'goDetail(article.id)'>
+    	<li v-for = "article in articles" @click = 'goDetail(article.subject.id)'>
 		<el-row :gutter="20" >
 		  <el-col :span="6">
 		  	<div class="grid-content ">
@@ -25,7 +25,7 @@
 		  			</span>
 		  		</p>
 		  		<p>
-		  			票房：{{article.box}}
+		  			票房：{{article.box / 10000}}万
 		  		</p>
 		  		<p>
 		  			豆瓣评分：<span style="color: #fea54c; font-size:20px">{{article.subject.rating.average}}</span>

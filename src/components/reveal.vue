@@ -1,11 +1,15 @@
 <template>
   <div id="reveal">
 	  <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
-	    <el-tab-pane label="正在热映" name="first">正在热映</el-tab-pane>
-	    <el-tab-pane label="即将上映" name="second">即将上映</el-tab-pane>
+	    <el-tab-pane label="正在热映" name="first">
+		<div class="">
+			fff
+		</div>
+	    </el-tab-pane>
+	    <el-tab-pane label="即将上映" name="second">
+	    	ffff
+	    </el-tab-pane>
 	  </el-tabs>
-
-
 
   </div>
 
@@ -25,6 +29,12 @@ export default {
   methods : {
       handleClick(tab, event) {
         console.log(tab, event);
+      },
+      revealData(){
+
+      },
+      soonData(){
+      	
       }
   },
   created (){
@@ -50,18 +60,18 @@ export default {
     box-sizing: border-box;
     width: 96%;
 }
-.search_list{
+.reveal_list{
 	margin: 0 8px;
 }
-.search_list li {
+.reveal_list li {
     border-bottom: 1px solid #F2F2F2;
     overflow: hidden;
 }
-.search_list li a {
+.reveal_list li a {
     display: block;
     overflow: hidden;
 }
-.search_list img {
+.reveal_list img {
     float: left;
     padding: 10px 0px;
     width: 40px;
@@ -87,5 +97,18 @@ export default {
     font-size: 12px;
     height: 14px;
     vertical-align: middle;
+}
+.el-tabs--card>.el-tabs__header .el-tabs__item:first-child{
+	border-radius: 15px 0 0 15px !important;
+}
+.el-tabs--card>.el-tabs__header .el-tabs__item{
+    border: 1px solid #20a0ff;
+    color: #20a0ff;	
+    border-radius: 0 15px 15px 0 !important;
+}
+.el-tabs--card>.el-tabs__header .el-tabs__item.is-active{
+    border: 1px solid #20a0ff;
+    background: #20a0ff;
+    color: #fff;	
 }
 </style>

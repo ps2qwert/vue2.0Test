@@ -1,27 +1,29 @@
 <template>
   <div id="movieDetails">
-	<h1 class="title">{{movie.title}}</h1>
-	<section class="subject-info"> 
-	 <div class="right"> 
-	  <a href=""> <img :src="movie.images.small" alt="" class="cover" /> </a> 
-	 </div> 
-	 <div class="left"> 
-	  <p class="rating"> <span>评分:</span> <strong>{{movie.rating.average}}</strong> <span>{{movie.ratings_count}}人评价</span> </p> 
-	  <p class="meta">
-		  <span v-for = "(value,key) in movie.genres"> / {{value}}</span>
-		  <span v-for = "(value,key) in movie.directors">/ {{value.name}}(导演)</span> 
-		  <span v-for = "(value,key) in movie.casts">/ {{value.name}}</span> / {{movie.year}}年上映 
-	  </p> 
-	  <a :href="movie.share_url" class="open-app" rel="nofollow">去豆瓣查看详细资料</a> 
-	 </div> 
-	</section>
-	<section class="subject-intro"> 
-	 <h2>{{movie.title}}的剧情简介</h2> 
-	 <div class="bd" style="position: static;"> 
-	  <p data-clamp="5" data-content="">{{movie.summary}}</p> 
-	 </div> 
-	</section>	
-
+	<head-nav :title = "author"></head-nav>
+	<div class="movieDetails_wrap">
+		<h1 class="title">{{movie.title}}</h1>
+		<section class="subject-info"> 
+		 <div class="right"> 
+		  <a href=""> <img :src="movie.images.small" alt="" class="cover" /> </a> 
+		 </div> 
+		 <div class="left"> 
+		  <p class="rating"> <span>评分:</span> <strong style="color: #fea54c; font-size:20px">{{movie.rating.average}}</strong> <span>{{movie.ratings_count}}人评价</span> </p> 
+		  <p class="meta">
+			  <span v-for = "(value,key) in movie.genres"> / {{value}}</span>
+			  <span v-for = "(value,key) in movie.directors">/ {{value.name}}(导演)</span> 
+			  <span v-for = "(value,key) in movie.casts">/ {{value.name}}</span> / {{movie.year}}年上映 
+		  </p> 
+		  <a :href="movie.share_url" class="open-app" rel="nofollow">去豆瓣查看详细资料</a> 
+		 </div> 
+		</section>
+		<section class="subject-intro"> 
+		 <h2>{{movie.title}}的剧情简介</h2> 
+		 <div class="bd" style="position: static;"> 
+		  <p data-clamp="5" data-content="">{{movie.summary}}</p> 
+		 </div> 
+		</section>	
+	</div>
 
   <!-- 评论 -->
 <!--   <section class="subject-comments"> 
@@ -46,8 +48,6 @@
        <div class="ic-btn ic-btn-more   right"></div>
       </div></li>
      <li class="go-comment-list"><a href="/movie/subject/25900945/comments?from=subject">查看全部短评</a></li>
-     <!-- react-empty: 76 -->
-     <!-- react-empty: 77 -->
     </ul>
    </div> 
   </section> -->
@@ -55,9 +55,11 @@
 </template>
 
 <script>
+import headNav from '../components/headNav.vue'
 export default {
   data () {
     return {
+    	author: '电影详情',
       movie : {
       	rating:{
       		average:"000"
@@ -100,14 +102,15 @@ export default {
   	var self = this
   	self.getData();
   	// self.getComment();
+  },
+  components : {
+    	headNav 
   }
 }
 </script>
 
 <style>
-#movieDetails{
-	margin: 0 10px
-};
+#movieDetails{};
 #movieDetails h1{
     margin: 30px 0 5px;
     font-size: 24px;
@@ -119,6 +122,9 @@ export default {
     margin: 0 0 15px;
     font-size: 15px;
 }
+.movieDetails_wrap{
+	margin: 0 10px
+}
 .subject-info {
 	overflow: hidden;
 	position: relative;
@@ -126,7 +132,8 @@ export default {
 }
 
 .subject-info .rating {
-	line-height: 18px
+	line-height: 18px; 
+	padding-left: 0
 }
 
 .subject-info .rating strong {
@@ -186,6 +193,11 @@ export default {
 	line-height: 1;
 	margin-top: 10px;
 	margin-bottom: -30px
+}
+
+.open-app{
+	color: #03a9f4;
+	text-decoration: none;
 }
 
 .subject-info .right {

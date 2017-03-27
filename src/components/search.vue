@@ -103,6 +103,9 @@ export default {
     padding: 10px 0;
     overflow: hidden;
 }
+.subject-info .rating{
+	padding-left: 10px
+}
 .subject-title {
     display: block;
     padding-left: 10px;

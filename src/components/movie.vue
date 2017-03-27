@@ -24,6 +24,9 @@
 		  				{{value}}
 		  			</span>
 		  		</p>
+		  		<p>
+		  			豆瓣评分：<span style="color: #fea54c; font-size:20px">{{article.rating.average}}</span>
+		  		</p>
 		  	</div>
 		  </el-col>
 		</el-row>
@@ -44,7 +47,7 @@ import pulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
   data () {
     return {
-      author: '电影top10',
+      author: '电影top20',
       articles : [],
       loading : true,
     }
