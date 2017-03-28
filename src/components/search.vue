@@ -53,7 +53,7 @@ export default {
   methods : {
   	search : function(){
   		var self = this
-		this.$http.get('http://127.0.0.1:9000/movieSearch', {
+		this.$http.get('http://203.195.199.174:9000/movieSearch', {
 			params: {
 				q : self.searchVal 
 			},

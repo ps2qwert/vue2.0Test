@@ -65,7 +65,7 @@ export default {
   methods : {
   	getData : function(){
   		var self = this
-		this.$http.get('http://127.0.0.1:9000/movie', {
+		this.$http.get('http://203.195.199.174:9000/movie', {
 			params: {
 			  count : 20
 			},

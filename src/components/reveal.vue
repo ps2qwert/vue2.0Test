@@ -3,11 +3,11 @@
 	  <el-tabs v-model="activeName" @tab-click="handleClick" type="card">
 	    <el-tab-pane label="正在热映" name="first">
 		<div class="">
-			fff
+			接口未开放，敬请期待……
 		</div>
 	    </el-tab-pane>
 	    <el-tab-pane label="即将上映" name="second">
-	    	ffff
+	    		接口未开放，敬请期待……
 	    </el-tab-pane>
 	  </el-tabs>
 
@@ -54,7 +54,12 @@ export default {
     text-align: center;
     float: none;
 }
-
+#reveal{
+	padding-top: 4%
+}
+.el-tabs__header{
+	border: none;
+}
 .search_wrap{
     margin: 0 2%;
     box-sizing: border-box;
@@ -98,13 +103,16 @@ export default {
     height: 14px;
     vertical-align: middle;
 }
+.el-tabs__content{
+	margin: 0 10px
+}
 .el-tabs--card>.el-tabs__header .el-tabs__item:first-child{
-	border-radius: 15px 0 0 15px !important;
+	border-radius: 70px 0 0 70px !important;
 }
 .el-tabs--card>.el-tabs__header .el-tabs__item{
     border: 1px solid #20a0ff;
     color: #20a0ff;	
-    border-radius: 0 15px 15px 0 !important;
+    border-radius: 0 70px 70px 0 !important;
 }
 .el-tabs--card>.el-tabs__header .el-tabs__item.is-active{
     border: 1px solid #20a0ff;

@@ -8,7 +8,7 @@
 		  <a href=""> <img :src="movie.images.small" alt="" class="cover" /> </a> 
 		 </div> 
 		 <div class="left"> 
-		  <p class="rating"> <span>评分:</span> <strong style="color: #fea54c; font-size:20px">{{movie.rating.average}}</strong> <span>{{movie.ratings_count}}人评价</span> </p> 
+		  <p class="rating" style="padding:0"> <span>评分:</span> <strong style="color: #fea54c; font-size:20px">{{movie.rating.average}}</strong> <span>{{movie.ratings_count}}人评价</span> </p> 
 		  <p class="meta">
 			  <span v-for = "(value,key) in movie.genres"> / {{value}}</span>
 			  <span v-for = "(value,key) in movie.directors">/ {{value.name}}(导演)</span> 
@@ -74,7 +74,7 @@ export default {
   methods : {
   	getData : function(){
 	  	var self = this
-		this.$http.get('http://127.0.0.1:9000/movieDetails', {
+		this.$http.get('http://203.195.199.174:9000/movieDetails', {
 			params: {
 				id : self.$route.params.movieId
 			},
