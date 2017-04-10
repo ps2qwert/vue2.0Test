@@ -25,5 +25,12 @@ npm run build
 ![image](https://github.com/ps2qwert/vue2.0Test/blob/master/src/assets/search.png)
 
 
+> 后续会整合vuex,热映页面尚未开发,需要豆瓣更高级权限, 如果要上线需要修改webpack.config.js,把publicPath给注释掉,否则会报路径错误.
 
-
+``` bash
+  output: {
+    path: path.resolve(__dirname, './dist'),
+    //publicPath: '/dist/',
+    filename: 'build.js'
+  },
+```
