@@ -15,5 +15,15 @@ npm run dev
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
+### 电影排行榜
+![image](https://github.com/ps2qwert/vue2.0Test/blob/master/src/assets/list.png)
+
+### 电影详情页
+![image](https://github.com/ps2qwert/vue2.0Test/blob/master/src/assets/detail.png)
+
+### 电影搜索页
+![image](https://github.com/ps2qwert/vue2.0Test/blob/master/src/assets/search.png)
+
+
+
 
