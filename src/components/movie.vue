@@ -1,7 +1,7 @@
 <template>
   <div id="movie"   >
     <head-nav :title = 'author'></head-nav>
-    <ul  v-loading="loading">
+    <ul  v-loading="loading" >
     	<li v-for = "article in articles" @click = 'goDetail(article.id)'>
 		<el-row :gutter="20" >
 		  <el-col :span="6">
@@ -64,7 +64,7 @@ export default {
   },
   methods : {
   	getData : function(){
-  		var self = this
+  		var self = this;
 		this.$http.get('http://203.195.199.174:9000/movie', {
 			params: {
 			  count : 20
@@ -76,7 +76,7 @@ export default {
 			console.log(error);
 		});
   	},
-  	goDetail(id){
+  	goDetail : function(id){
   		this.$router.push({name : 'movieDetail',params : {movieId : id}})
   	}
   },
@@ -102,6 +102,7 @@ export default {
 }
 #movie>ul{
 	margin: 0 8px;
+	min-height: 428px;
 }
 h1, h2{
   font-weight: normal;
